@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package digitalwantlist;
+
+option go_package = "github.com/brotherlogic/digitalwantlist/proto";
+
+message Config {
+}
+
