@@ -109,7 +109,7 @@ func (s *Server) initConfig() error {
 		}
 	}
 
-	return nil
+	return s.KSclient.Save(ctx, CONFIG, config)
 }
 
 func main() {
