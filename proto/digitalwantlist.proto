@@ -5,5 +5,21 @@ package digitalwantlist;
 option go_package = "github.com/brotherlogic/digitalwantlist/proto";
 
 message Config {
+  repeated TrackMaster masters = 1;
+  repeated int32 purchased = 2;
+}
+
+message TrackMaster {
+  int32 master_id = 1;
+  repeated int32 digital_ids = 2;
+
+  enum State {
+    UNKNOWN = 0;
+    TRACKING = 1;
+    COVERED = 2;
+    INELLIGIBLE = 3;
+  }
+
+  State state = 3;
 }
 
