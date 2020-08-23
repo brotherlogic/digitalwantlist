@@ -11,6 +11,8 @@ import (
 	"github.com/brotherlogic/goserver/utils"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	pb "github.com/brotherlogic/digitalwantlist/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
@@ -126,7 +128,11 @@ func main() {
 	ctx, cancel := utils.ManualContext("dwlm", "dwlm", time.Minute, false)
 	config, err := server.loadConfig(ctx)
 	cancel()
+	code := status.Convert(err).Code()
 	if err != nil {
+		if code == codes.InvalidArgument {
+			server.initConfig()
+		}
 		log.Fatalf("Error loading: %v", err)
 	}
 
