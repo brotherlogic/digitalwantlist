@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"time"
 
 	"github.com/brotherlogic/goserver"
+	"github.com/brotherlogic/goserver/utils"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
+	pb "github.com/brotherlogic/digitalwantlist/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
+	pbrc "github.com/brotherlogic/recordcollection/proto"
 )
 
 //Server main server type
@@ -53,6 +57,54 @@ func (s *Server) GetState() []*pbg.State {
 	}
 }
 
+func (s *Server) initConfig() error {
+	s.Log(fmt.Sprintf("Initializing Digital Wantlist Config"))
+	cancel, err := s.Elect()
+	defer cancel()
+
+	if err != nil {
+		return err
+	}
+
+	config := &pb.Config{}
+
+	ctx, cancel := utils.ManualContext("dwl", "dwl", time.Hour*2, false)
+	defer cancel()
+
+	conn, err := s.FDialServer(ctx, "recordcollection")
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	client := pbrc.NewRecordCollectionServiceClient(conn)
+
+	ids, err := client.QueryRecords(ctx, &pbrc.QueryRecordsRequest{Query: &pbrc.QueryRecordsRequest_All{true}})
+	if err != nil {
+		return err
+	}
+
+	for _, id := range ids.GetInstanceIds() {
+		r, err := client.GetRecord(ctx, &pbrc.GetRecordRequest{InstanceId: id, Validate: false})
+		if err != nil {
+			return err
+		}
+
+		found := false
+		for _, id := range config.Purchased {
+			if id == r.GetRecord().GetRelease().GetId() {
+				found = true
+			}
+		}
+
+		if !found {
+			config.Purchased = append(config.Purchased, r.GetRecord().GetRelease().GetId())
+		}
+	}
+
+	return nil
+}
+
 func main() {
 	var quiet = flag.Bool("quiet", false, "Show all output")
 	flag.Parse()
@@ -70,6 +122,16 @@ func main() {
 	if err != nil {
 		return
 	}
+
+	ctx, cancel := utils.ManualContext("dwlm", "dwlm", time.Minute, false)
+	config, err := server.loadConfig(ctx)
+	cancel()
+	if err != nil {
+		log.Fatalf("Error loading: %v", err)
+	}
+
+	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
+	time.Sleep(time.Second * 5)
 
 	fmt.Printf("%v", server.Serve())
 }
