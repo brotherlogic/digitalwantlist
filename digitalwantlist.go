@@ -92,6 +92,8 @@ func (s *Server) initConfig() error {
 			return err
 		}
 
+		time.Sleep(time.Second)
+
 		found := false
 		for _, id := range config.Purchased {
 			if id == r.GetRecord().GetRelease().GetId() {
