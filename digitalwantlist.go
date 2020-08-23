@@ -86,13 +86,16 @@ func (s *Server) initConfig() error {
 		return err
 	}
 
-	for _, id := range ids.GetInstanceIds() {
+	for i, id := range ids.GetInstanceIds() {
 		r, err := client.GetRecord(ctx, &pbrc.GetRecordRequest{InstanceId: id, Validate: false})
 		if err != nil {
 			return err
 		}
 
-		time.Sleep(time.Second)
+		time.Sleep(time.Second * 2)
+		if i%10 == 0 {
+			s.Log(fmt.Sprintf("GOT %v", r.GetRecord().GetRelease().GetTitle()))
+		}
 
 		found := false
 		for _, id := range config.Purchased {
