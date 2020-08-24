@@ -61,12 +61,6 @@ func (s *Server) GetState() []*pbg.State {
 
 func (s *Server) initConfig() error {
 	s.Log(fmt.Sprintf("Initializing Digital Wantlist Config"))
-	cancel, err := s.Elect()
-	defer cancel()
-
-	if err != nil {
-		return err
-	}
 
 	config := &pb.Config{}
 
@@ -86,15 +80,10 @@ func (s *Server) initConfig() error {
 		return err
 	}
 
-	for i, id := range ids.GetInstanceIds() {
+	for _, id := range ids.GetInstanceIds() {
 		r, err := client.GetRecord(ctx, &pbrc.GetRecordRequest{InstanceId: id, Validate: false})
 		if err != nil {
 			return err
-		}
-
-		time.Sleep(time.Second * 2)
-		if i%10 == 0 {
-			s.Log(fmt.Sprintf("GOT %v", r.GetRecord().GetRelease().GetTitle()))
 		}
 
 		found := false
@@ -130,6 +119,11 @@ func main() {
 		return
 	}
 
+	ecancel, err := server.Elect()
+	if err != nil {
+		log.Fatalf("Quitting: %v", err)
+	}
+
 	ctx, cancel := utils.ManualContext("dwlm", "dwlm", time.Minute, false)
 	config, err := server.loadConfig(ctx)
 	cancel()
@@ -138,8 +132,10 @@ func main() {
 		if code == codes.InvalidArgument {
 			server.initConfig()
 		}
+		ecancel()
 		log.Fatalf("Error loading: %v", err)
 	}
+	ecancel()
 
 	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
 	time.Sleep(time.Second * 5)
