@@ -92,11 +92,6 @@ func (s *Server) initConfig() error {
 			return err
 		}
 
-		time.Sleep(time.Second * 2)
-		if i%10 == 0 {
-			s.Log(fmt.Sprintf("GOT %v", r.GetRecord().GetRelease().GetTitle()))
-		}
-
 		found := false
 		for _, id := range config.Purchased {
 			if id == r.GetRecord().GetRelease().GetId() {
