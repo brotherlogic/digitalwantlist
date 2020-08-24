@@ -133,7 +133,7 @@ func main() {
 			server.initConfig()
 		}
 		ecancel()
-		server.log(fmt.Sprintf("Error Loading Config: %v", err))
+		server.Log(fmt.Sprintf("Error Loading Config: %v", err))
 		time.Sleep(time.Second * 5)
 		log.Fatalf("Error loading: %v", err)
 	}
