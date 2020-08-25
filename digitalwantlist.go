@@ -119,16 +119,16 @@ func main() {
 		return
 	}
 
-	ecancel, err := server.Elect()
-	if err != nil {
-		log.Fatalf("Quitting: %v", err)
-	}
-
 	ctx, cancel := utils.ManualContext("dwlm", "dwlm", time.Minute, false)
 	config, err := server.loadConfig(ctx)
 	cancel()
 	code := status.Convert(err).Code()
 	if err != nil {
+		ecancel, err := server.Elect()
+		if err != nil {
+			log.Fatalf("Quitting: %v", err)
+		}
+
 		if code == codes.InvalidArgument {
 			server.initConfig()
 		}
@@ -137,7 +137,6 @@ func main() {
 		time.Sleep(time.Second * 5)
 		log.Fatalf("Error loading: %v", err)
 	}
-	ecancel()
 
 	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
 	time.Sleep(time.Second * 5)
