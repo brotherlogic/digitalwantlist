@@ -16,7 +16,7 @@ import (
 
 	pb "github.com/brotherlogic/digitalwantlist/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
-	pbrc "github.com/brotherlogic/recordcollection/proto"
+	rcpb "github.com/brotherlogic/recordcollection/proto"
 )
 
 //Server main server type
@@ -34,7 +34,7 @@ func Init() *Server {
 
 // DoRegister does RPC registration
 func (s *Server) DoRegister(server *grpc.Server) {
-
+	rcpb.RegisterClientUpdateServiceServer(server, s)
 }
 
 // ReportHealth alerts if we're not healthy
@@ -73,15 +73,15 @@ func (s *Server) initConfig() error {
 	}
 	defer conn.Close()
 
-	client := pbrc.NewRecordCollectionServiceClient(conn)
+	client := rcpb.NewRecordCollectionServiceClient(conn)
 
-	ids, err := client.QueryRecords(ctx, &pbrc.QueryRecordsRequest{Query: &pbrc.QueryRecordsRequest_All{true}})
+	ids, err := client.QueryRecords(ctx, &rcpb.QueryRecordsRequest{Query: &rcpb.QueryRecordsRequest_All{true}})
 	if err != nil {
 		return err
 	}
 
 	for _, id := range ids.GetInstanceIds() {
-		r, err := client.GetRecord(ctx, &pbrc.GetRecordRequest{InstanceId: id, Validate: false})
+		r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
 		if err != nil {
 			return err
 		}
