@@ -81,7 +81,7 @@ func (s *Server) initConfig() error {
 	}
 
 	for _, id := range ids.GetInstanceIds() {
-		err := s.processRecord(ctx, client, id, config)
+		_, err := s.processRecord(ctx, client, id, config)
 		if err != nil {
 			return err
 		}
@@ -90,10 +90,10 @@ func (s *Server) initConfig() error {
 	return s.KSclient.Save(ctx, CONFIG, config)
 }
 
-func (s *Server) processRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32, config *pb.Config) error {
+func (s *Server) processRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32, config *pb.Config) (*rcpb.Record, error) {
 	r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	found := false
@@ -107,7 +107,7 @@ func (s *Server) processRecord(ctx context.Context, client rcpb.RecordCollection
 		config.Purchased = append(config.Purchased, r.GetRecord().GetRelease().GetId())
 	}
 
-	return nil
+	return r.GetRecord(), nil
 }
 
 func main() {
