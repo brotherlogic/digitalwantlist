@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 
-	"golang.org/x/net/context"
-
-	rcpb "github.com/brotherlogic/recordcollection/proto"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+	"golang.org/x/net/context"
+
+	gdpb "github.com/brotherlogic/godiscogs"
+	rcpb "github.com/brotherlogic/recordcollection/proto"
+	rwpb "github.com/brotherlogic/recordwants/proto"
 )
 
 var (
@@ -44,6 +46,19 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 
 	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 {
 		s.Log(fmt.Sprintf("Setting up CD wantlist for %v", record.GetRelease().GetTitle()))
+		conn, err := s.FDialServer(ctx, "recordwants")
+		if err != nil {
+			return nil, err
+		}
+		defer conn.Close()
+
+		rwclient := rwpb.NewWantServiceClient(conn)
+		for _, dv := range record.GetRelease().GetDigitalVersions() {
+			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
+			if err == nil {
+				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_ANYTIME})
+			}
+		}
 	}
 
 	purchased.Set(float64(len(config.GetPurchased())))
