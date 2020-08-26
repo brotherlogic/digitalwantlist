@@ -81,24 +81,33 @@ func (s *Server) initConfig() error {
 	}
 
 	for _, id := range ids.GetInstanceIds() {
-		r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
+		err := s.processRecord(ctx, client, id, config)
 		if err != nil {
 			return err
-		}
-
-		found := false
-		for _, id := range config.Purchased {
-			if id == r.GetRecord().GetRelease().GetId() {
-				found = true
-			}
-		}
-
-		if !found {
-			config.Purchased = append(config.Purchased, r.GetRecord().GetRelease().GetId())
 		}
 	}
 
 	return s.KSclient.Save(ctx, CONFIG, config)
+}
+
+func (s *Server) processRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32, config *pb.Config) error {
+	r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
+	if err != nil {
+		return err
+	}
+
+	found := false
+	for _, id := range config.Purchased {
+		if id == r.GetRecord().GetRelease().GetId() {
+			found = true
+		}
+	}
+
+	if !found {
+		config.Purchased = append(config.Purchased, r.GetRecord().GetRelease().GetId())
+	}
+
+	return nil
 }
 
 func main() {

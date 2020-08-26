@@ -21,6 +21,16 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 	if err != nil {
 		return nil, err
 	}
+
+	conn, err := s.FDialServer(ctx, "recordcollection")
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+
+	client := rcpb.NewRecordCollectionServiceClient(conn)
+	s.processRecord(ctx, client, req.GetInstanceId(), config)
+
 	purchased.Set(float64(len(config.GetPurchased())))
 	return &rcpb.ClientUpdateResponse{}, nil
 }
