@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -45,7 +43,6 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 	}
 
 	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 {
-		s.Log(fmt.Sprintf("Setting up CD wantlist for %v", record.GetRelease().GetTitle()))
 		conn, err := s.FDialServer(ctx, "recordwants")
 		if err != nil {
 			return nil, err
@@ -57,6 +54,10 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
 			if err == nil {
 				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_ANYTIME})
+			}
+
+			if err != nil {
+				return nil, err
 			}
 		}
 	}
