@@ -42,7 +42,9 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 		}
 	}
 
-	s.Log(fmt.Sprintf("%v has purchased versions: %v", req.GetInstanceId(), cdPurchased))
+	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 {
+		s.Log(fmt.Sprintf("Setting up CD wantlist for %v", record.GetRelease().GetTitle()))
+	}
 
 	purchased.Set(float64(len(config.GetPurchased())))
 	return &rcpb.ClientUpdateResponse{}, nil
