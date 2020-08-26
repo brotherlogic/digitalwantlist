@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -42,6 +44,7 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 		}
 	}
 
+	s.Log(fmt.Sprintf("Here: %v and %v -> %v", cdPurchased, record.GetMetadata().GetGoalFolder(), record.GetRelease().GetDigitalVersions()))
 	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 {
 		conn, err := s.FDialServer(ctx, "recordwants")
 		if err != nil {
