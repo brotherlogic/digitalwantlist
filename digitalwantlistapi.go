@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"golang.org/x/net/context"
 
 	rcpb "github.com/brotherlogic/recordcollection/proto"
@@ -29,7 +31,18 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 	defer conn.Close()
 
 	client := rcpb.NewRecordCollectionServiceClient(conn)
-	s.processRecord(ctx, client, req.GetInstanceId(), config)
+	record, err := s.processRecord(ctx, client, req.GetInstanceId(), config)
+
+	cdPurchased := false
+	for _, purchased := range config.GetPurchased() {
+		for _, dv := range record.GetRelease().GetDigitalVersions() {
+			if dv == purchased {
+				cdPurchased = true
+			}
+		}
+	}
+
+	s.Log(fmt.Sprintf("%v has purchased versions: %v", req.GetInstanceId(), cdPurchased))
 
 	purchased.Set(float64(len(config.GetPurchased())))
 	return &rcpb.ClientUpdateResponse{}, nil
