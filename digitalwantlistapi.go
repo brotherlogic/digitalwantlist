@@ -44,7 +44,7 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 		}
 	}
 
-	s.Log(fmt.Sprintf("Here: %v and %v -> %v", cdPurchased, record.GetMetadata().GetGoalFolder(), record.GetRelease().GetDigitalVersions()))
+	s.Log(fmt.Sprintf("Here: %v and %v -> %v -> %v", cdPurchased, record.GetMetadata().GetGoalFolder(), record.GetRelease().GetDigitalVersions(), record.GetMetadata().GetOverallScore()))
 	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 {
 		conn, err := s.FDialServer(ctx, "recordwants")
 		if err != nil {
