@@ -133,9 +133,9 @@ func main() {
 	cancel()
 	code := status.Convert(err).Code()
 	if err != nil {
-		ecancel, err := server.Elect()
-		if err != nil {
-			log.Fatalf("Quitting: %v", err)
+		ecancel, eerr := server.Elect()
+		if eerr != nil {
+			log.Fatalf("Quitting: %v", eerr)
 		}
 
 		if code == codes.InvalidArgument {
