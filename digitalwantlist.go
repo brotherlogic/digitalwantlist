@@ -142,6 +142,12 @@ func main() {
 			server.initConfig()
 		}
 		ecancel()
+
+		// Silent exit if there's not keystore
+		if code == codes.NotFound || code == codes.DeadlineExceeded {
+			return
+		}
+
 		server.Log(fmt.Sprintf("Error Loading Config: %v", err))
 		time.Sleep(time.Second * 5)
 		log.Fatalf("Error loading: %v", err)
