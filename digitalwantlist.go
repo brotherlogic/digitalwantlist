@@ -153,7 +153,7 @@ func main() {
 		log.Fatalf("Error loading: %v", err)
 	}
 
-	if len(config.GetPurchased()) > 1 {
+	/*	if len(config.GetPurchased()) > 1 {
 		config.Purchased = []int32{1}
 		ctx, cancel := utils.ManualContext("dwlw", "dwlw", time.Minute, false)
 		defer cancel()
@@ -162,7 +162,7 @@ func main() {
 		server.Log(fmt.Sprintf("boune: %v", e2))
 		time.Sleep(time.Second * 5)
 		log.Fatalf("back")
-	}
+	}*/
 
 	time.Sleep(time.Second * 5)
 	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
