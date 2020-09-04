@@ -156,6 +156,7 @@ func main() {
 	if len(config.GetPurchased()) > 1 {
 		config.Purchased = []int32{1}
 		ctx, cancel := utils.ManualContext("dwlw", "dwlw", time.Minute, false)
+		defer cancel()
 		e2 := server.KSclient.Save(ctx, CONFIG, config)
 		time.Sleep(time.Second * 5)
 		server.Log(fmt.Sprintf("boune: %v", e2))
