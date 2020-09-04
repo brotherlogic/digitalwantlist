@@ -153,6 +153,7 @@ func main() {
 		log.Fatalf("Error loading: %v", err)
 	}
 
+	time.Sleep(time.Second * 5)
 	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
 	time.Sleep(time.Second * 5)
 
