@@ -153,12 +153,6 @@ func main() {
 		log.Fatalf("Error loading: %v", err)
 	}
 
-	if len(config.GetPurchased()) > 0 {
-		config.Purchased = []int32{}
-		server.KSclient.Save(ctx, CONFIG, config)
-		log.Fatalf("Quitting config")
-	}
-
 	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
 	time.Sleep(time.Second * 5)
 
