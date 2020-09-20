@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -19,6 +17,29 @@ var (
 	})
 )
 
+func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionServiceClient, record *rcpb.Record) error {
+	// Only process 12 inches
+	if record.GetMetadata().GetGoalFolder() != int32(242017) {
+		return s.unwant(ctx, record)
+	}
+
+	purchased := false
+	for _, id := range record.GetRelease().GetDigitalVersions() {
+		records, err := s.getRecords(ctx, client, id)
+		if err != nil {
+			return err
+		}
+		if len(records) > 0 {
+			purchased = true
+		}
+	}
+
+	if purchased {
+		return s.unwant(ctx, record)
+	}
+	return s.want(ctx, record)
+}
+
 //ClientUpdate on an updated record
 func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest) (*rcpb.ClientUpdateResponse, error) {
 	config, err := s.loadConfig(ctx)
@@ -34,37 +55,49 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 
 	client := rcpb.NewRecordCollectionServiceClient(conn)
 	record, err := s.processRecord(ctx, client, req.GetInstanceId(), config)
+	s.adjust(ctx, client, record)
 
-	cdPurchased := false
-	for _, purchased := range config.GetPurchased() {
-		for _, dv := range record.GetRelease().GetDigitalVersions() {
-			if dv == purchased {
-				cdPurchased = true
-			}
-		}
+	return &rcpb.ClientUpdateResponse{}, s.adjust(ctx, client, record)
+}
+
+func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
+	conn, err := s.FDialServer(ctx, "recordwants")
+	if err != nil {
+		return err
 	}
+	defer conn.Close()
+	rwclient := rwpb.NewWantServiceClient(conn)
 
-	s.Log(fmt.Sprintf("Here: %v and %v -> %v -> %v", cdPurchased, record.GetMetadata().GetGoalFolder(), record.GetRelease().GetDigitalVersions(), record.GetMetadata().GetOverallScore()))
-	if !cdPurchased && record.GetMetadata().GetGoalFolder() == 242017 && record.GetMetadata().GetOverallScore() > 4 {
-		conn, err := s.FDialServer(ctx, "recordwants")
+	for _, dv := range record.GetRelease().GetDigitalVersions() {
+		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
+		if err == nil {
+			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_ANYTIME})
+		}
+
 		if err != nil {
-			return nil, err
-		}
-		defer conn.Close()
-
-		rwclient := rwpb.NewWantServiceClient(conn)
-		for _, dv := range record.GetRelease().GetDigitalVersions() {
-			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
-			if err == nil {
-				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_ANYTIME})
-			}
-
-			if err != nil {
-				return nil, err
-			}
+			return err
 		}
 	}
+	return nil
+}
 
-	purchased.Set(float64(len(config.GetPurchased())))
-	return &rcpb.ClientUpdateResponse{}, nil
+func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
+	conn, err := s.FDialServer(ctx, "recordwants")
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	rwclient := rwpb.NewWantServiceClient(conn)
+
+	for _, dv := range record.GetRelease().GetDigitalVersions() {
+		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
+		if err == nil {
+			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_NEVER})
+		}
+
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

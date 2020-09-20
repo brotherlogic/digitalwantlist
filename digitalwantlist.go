@@ -90,6 +90,26 @@ func (s *Server) initConfig() error {
 	return s.KSclient.Save(ctx, CONFIG, config)
 }
 
+func (s *Server) getRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32) (*rcpb.Record, error) {
+	r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
+	if err != nil {
+		return nil, err
+	}
+
+	return r.GetRecord(), nil
+
+}
+
+func (s *Server) getRecords(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32) ([]int32, error) {
+	r, err := client.QueryRecords(ctx, &rcpb.QueryRecordsRequest{Query: &rcpb.QueryRecordsRequest_ReleaseId{id}})
+	if err != nil {
+		return nil, err
+	}
+
+	return r.GetInstanceIds(), nil
+
+}
+
 func (s *Server) processRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32, config *pb.Config) (*rcpb.Record, error) {
 	r, err := client.GetRecord(ctx, &rcpb.GetRecordRequest{InstanceId: id, Validate: false})
 	if err != nil {
