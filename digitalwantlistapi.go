@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -61,6 +63,7 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 }
 
 func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
+	s.Log(fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
 	conn, err := s.FDialServer(ctx, "recordwants")
 	if err != nil {
 		return err
@@ -82,6 +85,8 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 }
 
 func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
+	s.Log(fmt.Sprintf("UNWANTING %v", record.GetRelease().GetInstanceId()))
+
 	conn, err := s.FDialServer(ctx, "recordwants")
 	if err != nil {
 		return err
