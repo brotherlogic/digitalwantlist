@@ -108,6 +108,8 @@ func (s *Server) getBoughtRecords(ctx context.Context) ([]int32, error) {
 		res = append(res, r.GetId())
 	}
 
+	s.Log(fmt.Sprintf("Found %v bought records -> %v", len(resp.GetRequests()), len(res)))
+
 	return res, err
 }
 

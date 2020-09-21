@@ -40,6 +40,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 	if err != nil {
 		return err
 	}
+
 	for _, id := range records {
 		for _, oid := range record.GetRelease().GetDigitalVersions() {
 			if id == oid {
