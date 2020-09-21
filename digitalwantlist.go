@@ -16,6 +16,7 @@ import (
 
 	pb "github.com/brotherlogic/digitalwantlist/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
+	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
 )
 
@@ -88,6 +89,26 @@ func (s *Server) initConfig() error {
 	}
 
 	return s.KSclient.Save(ctx, CONFIG, config)
+}
+
+func (s *Server) getBoughtRecords(ctx context.Context) ([]int32, error) {
+	conn, err := s.FDialServer(ctx, "recordadder")
+	if err != nil {
+		return nil, err
+	}
+
+	client := rapb.NewAddRecordServiceClient(conn)
+	resp, err := client.ListQueue(ctx, &rapb.ListQueueRequest{})
+	if err != nil {
+		return nil, err
+	}
+
+	res := []int32{}
+	for _, r := range resp.GetRequests() {
+		res = append(res, r.GetId())
+	}
+
+	return res, err
 }
 
 func (s *Server) getRecord(ctx context.Context, client rcpb.RecordCollectionServiceClient, id int32) (*rcpb.Record, error) {
