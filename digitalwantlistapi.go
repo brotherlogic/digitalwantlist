@@ -25,6 +25,11 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return nil
 	}
 
+	//Unwant anything that scores under 4
+	if record.GetMetadata().GetOverallScore() < 4 {
+		return s.unwant(ctx, record)
+	}
+
 	purchased := false
 	for _, id := range record.GetRelease().GetDigitalVersions() {
 		records, err := s.getRecords(ctx, client, id)
