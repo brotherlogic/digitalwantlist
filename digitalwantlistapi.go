@@ -54,6 +54,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		}
 	}
 
+	s.Log(fmt.Sprintf("FOUND PURCHASED %v for %v", purchased, record.GetRelease().GetInstanceId()))
 	if purchased {
 		return s.unwant(ctx, record)
 	}
