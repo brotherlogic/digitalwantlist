@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"os"
@@ -14,7 +13,7 @@ import (
 )
 
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Hour)
+	ctx, cancel := utils.ManualContext("dwcli", "dwcli", time.Hour, true)
 	defer cancel()
 
 	conn, err := utils.LFDialServer(ctx, "digitalwantlist")

@@ -96,6 +96,7 @@ func (s *Server) getBoughtRecords(ctx context.Context) ([]int32, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer conn.Close()
 
 	client := rapb.NewAddRecordServiceClient(conn)
 	resp, err := client.ListQueue(ctx, &rapb.ListQueueRequest{})
