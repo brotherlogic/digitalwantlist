@@ -6,6 +6,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	gdpb "github.com/brotherlogic/godiscogs"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
@@ -92,11 +94,9 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 
 	for _, dv := range record.GetRelease().GetDigitalVersions() {
 		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
-		if err == nil {
+		if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
 			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_ANYTIME})
-		}
-
-		if err != nil {
+		} else {
 			return err
 		}
 	}
@@ -115,7 +115,7 @@ func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
 
 	for _, dv := range record.GetRelease().GetDigitalVersions() {
 		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
-		if err == nil {
+		if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
 			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_NEVER})
 		}
 
