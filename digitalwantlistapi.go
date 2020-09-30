@@ -24,7 +24,7 @@ var (
 func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionServiceClient, record *rcpb.Record) error {
 	// Only process 12 inches
 	if record.GetRelease().GetFolderId() != int32(242017) {
-		return nil
+		return s.unwant(ctx, record)
 	}
 
 	//Unwant anything that scores under 4
