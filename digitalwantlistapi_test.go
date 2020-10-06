@@ -4,9 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/brotherlogic/keystore/client"
+	keystoreclient "github.com/brotherlogic/keystore/client"
 
 	pb "github.com/brotherlogic/digitalwantlist/proto"
+	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
 )
 
@@ -22,6 +23,14 @@ func InitTestServer() *Server {
 func TestClientUpdate(t *testing.T) {
 	s := InitTestServer()
 	_, err := s.ClientUpdate(context.Background(), &rcpb.ClientUpdateRequest{})
+	if err != nil {
+		t.Errorf("Could not perform update: %v", err)
+	}
+}
+
+func TestClientAddUpdate(t *testing.T) {
+	s := InitTestServer()
+	_, err := s.ClientAddUpdate(context.Background(), &rapb.ClientAddUpdateRequest{})
 	if err != nil {
 		t.Errorf("Could not perform update: %v", err)
 	}
