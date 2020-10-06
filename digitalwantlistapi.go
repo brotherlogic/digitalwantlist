@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	gdpb "github.com/brotherlogic/godiscogs"
+	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
 	rwpb "github.com/brotherlogic/recordwants/proto"
 )
@@ -124,4 +125,9 @@ func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
 		}
 	}
 	return nil
+}
+
+//ClientAddUpdate deal with a new record addition from record adder
+func (s *Server) ClientAddUpdate(ctx context.Context, req *rapb.ClientAddUpdateRequest) (*rapb.ClientAddUpdateResponse, error) {
+	return &rapb.ClientAddUpdateResponse{}, nil
 }
