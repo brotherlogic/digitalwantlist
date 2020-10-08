@@ -129,5 +129,29 @@ func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
 
 //ClientAddUpdate deal with a new record addition from record adder
 func (s *Server) ClientAddUpdate(ctx context.Context, req *rapb.ClientAddUpdateRequest) (*rapb.ClientAddUpdateResponse, error) {
+	conn, err := s.FDialServer(ctx, "recordcollection")
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+
+	rclient := rcpb.NewRecordCollectionServiceClient(conn)
+	rel, err := rclient.GetRecord(ctx, &rcpb.GetRecordRequest{ReleaseId: req.GetId()})
+	if err != nil {
+		return nil, err
+	}
+
+	iids, err := rclient.QueryRecords(ctx, &rcpb.QueryRecordsRequest{Query: &rcpb.QueryRecordsRequest_MasterId{MasterId: rel.GetRecord().GetRelease().GetMasterId()}})
+	if err != nil {
+		return nil, err
+	}
+
+	for _, iid := range iids.GetInstanceIds() {
+		_, err := rclient.UpdateRecord(ctx, &rcpb.UpdateRecordRequest{Reason: "dwl-blank", Update: &rcpb.Record{Release: &gdpb.Release{InstanceId: iid}}})
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	return &rapb.ClientAddUpdateResponse{}, nil
 }
