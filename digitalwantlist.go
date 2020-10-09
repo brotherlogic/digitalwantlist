@@ -36,6 +36,7 @@ func Init() *Server {
 // DoRegister does RPC registration
 func (s *Server) DoRegister(server *grpc.Server) {
 	rcpb.RegisterClientUpdateServiceServer(server, s)
+	rapb.RegisterClientAddUpdateServiceServer(server, s)
 }
 
 // ReportHealth alerts if we're not healthy
