@@ -66,7 +66,7 @@ func (s *Server) initConfig() error {
 
 	config := &pb.Config{}
 
-	ctx, cancel := utils.ManualContext("dwl", "dwl", time.Hour*2, false)
+	ctx, cancel := utils.ManualContext("dwl", time.Hour*2)
 	defer cancel()
 
 	conn, err := s.FDialServer(ctx, "recordcollection")
@@ -171,7 +171,7 @@ func main() {
 		return
 	}
 
-	ctx, cancel := utils.ManualContext("dwlm", "dwlm", time.Minute, false)
+	ctx, cancel := utils.ManualContext("dwlm", time.Minute)
 	config, err := server.loadConfig(ctx)
 	cancel()
 	code := status.Convert(err).Code()
