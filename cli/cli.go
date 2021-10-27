@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	ctx, cancel := utils.ManualContext("dwcli", "dwcli", time.Hour, true)
+	ctx, cancel := utils.ManualContext("dwcli", time.Hour)
 	defer cancel()
 
 	conn, err := utils.LFDialServer(ctx, "digitalwantlist")

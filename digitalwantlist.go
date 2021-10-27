@@ -173,10 +173,12 @@ func main() {
 
 	ctx, cancel := utils.ManualContext("dwlm", time.Minute)
 	config, err := server.loadConfig(ctx)
-	cancel()
 	code := status.Convert(err).Code()
 	if err != nil {
-		ecancel, eerr := server.Elect()
+		key, eerr := server.RunLockingElection(ctx, "dwl-init")
+		defer func() {
+			server.ReleaseLockingElection(ctx, "dwl-init", key)
+		}()
 		if eerr != nil {
 			log.Fatalf("Quitting: %v", eerr)
 		}
@@ -184,7 +186,6 @@ func main() {
 		if code == codes.InvalidArgument {
 			server.initConfig()
 		}
-		ecancel()
 
 		// Silent exit if there's not keystore
 		if code == codes.NotFound || code == codes.DeadlineExceeded {
@@ -195,6 +196,7 @@ func main() {
 		time.Sleep(time.Second * 5)
 		log.Fatalf("Error loading: %v", err)
 	}
+	cancel()
 
 	/*	if len(config.GetPurchased()) > 1 {
 		config.Purchased = []int32{1}
