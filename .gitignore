@@ -5,3 +5,4 @@ digitalwantlist
 testing
 *.backup
 cli/cli
+digitalwantlist_cli/digitalwantlist_cli
