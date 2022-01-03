@@ -113,9 +113,9 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 		}
 
 		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetSalePrice())/100 {
-			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
+			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv, Budget: "digital"})
 			if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
-				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_WANT_DIGITAL})
+				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Budget: "digital", Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_WANT_DIGITAL})
 			} else {
 				return err
 			}
