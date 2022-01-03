@@ -29,6 +29,11 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
+	// Don't process keepers
+	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_KEEPER {
+		return s.unwant(ctx, record)
+	}
+
 	//Unwant anything that scores under 4
 	if record.GetMetadata().GetOverallScore() < 4 {
 		return s.unwant(ctx, record)
