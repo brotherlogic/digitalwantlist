@@ -25,7 +25,7 @@ var (
 
 func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionServiceClient, record *rcpb.Record) error {
 	// Only process 12 inches
-	if record.GetRelease().GetFolderId() != int32(242017) {
+	if record.GetRelease().GetFolderId() != int32(242017) && record.GetMetadata().GetCategory() == rcpb.ReleaseMetadata_IN_COLLECTION {
 		return s.unwant(ctx, record)
 	}
 
