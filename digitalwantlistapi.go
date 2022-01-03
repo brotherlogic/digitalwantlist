@@ -12,6 +12,7 @@ import (
 	gdpb "github.com/brotherlogic/godiscogs"
 	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
+	rspb "github.com/brotherlogic/recordsales/proto"
 	rwpb "github.com/brotherlogic/recordwants/proto"
 )
 
@@ -93,12 +94,26 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 	defer conn.Close()
 	rwclient := rwpb.NewWantServiceClient(conn)
 
+	c2, err2 := s.FDialServer(ctx, "recordsales")
+	if err2 != nil {
+		return err
+	}
+	defer c2.Close()
+	rsclient := rspb.NewSaleServiceClient(c2)
+
 	for _, dv := range record.GetRelease().GetDigitalVersions() {
-		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
-		if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
-			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_WANT_DIGITAL})
-		} else {
+		sprice, err := rsclient.GetPrice(ctx, &rspb.GetPriceRequest{Id: dv})
+		if err != nil {
 			return err
+		}
+
+		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetSalePrice())/100 {
+			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
+			if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
+				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_WANT_DIGITAL})
+			} else {
+				return err
+			}
 		}
 	}
 	return nil
