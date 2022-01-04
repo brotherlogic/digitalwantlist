@@ -416,6 +416,7 @@ github.com/brotherlogic/recordsorganiser v0.0.0-20211222201258-d2f04dfa8529/go.m
 github.com/brotherlogic/recordwants v0.0.0-20210918164032-9da04d53cbf1/go.mod h1:IRkZBOav31NWTwWvMRVq3ttruarwBQe3ZWHslWjSmI4=
 github.com/brotherlogic/recordwants v0.0.0-20210918190859-49fa2a64cd32/go.mod h1:Y8JZ4SDM/W4+rQRQgjj89wG3AizbjYfNq5Bt9tltR8Q=
 github.com/brotherlogic/recordwants v0.0.0-20211008225925-8a8f9e0a9e6d/go.mod h1:Y8JZ4SDM/W4+rQRQgjj89wG3AizbjYfNq5Bt9tltR8Q=
+github.com/brotherlogic/recordwants v0.0.0-20220103170844-97a9fa445364/go.mod h1:SLJhc9S0xlFoQjSBne/qSVoBXmufd0q2CCALuDMaqhI=
 github.com/brotherlogic/recordwants v0.0.0-20220103175428-232c66b696e1 h1:6qfCutzBDu8+NC8X3artKDKCzsqzS3Q91Rj5/gRX31Y=
 github.com/brotherlogic/recordwants v0.0.0-20220103175428-232c66b696e1/go.mod h1:SLJhc9S0xlFoQjSBne/qSVoBXmufd0q2CCALuDMaqhI=
 github.com/brotherlogic/temp v0.0.0-20210923034957-a5d1be22449e/go.mod h1:XeQMMOzb07ycXzBCbs76Ez5oMsywgNigfanPFpHf/lU=
@@ -434,6 +435,8 @@ github.com/brotherlogic/versiontracker v0.0.0-20211114171241-160fb6e513d7/go.mod
 github.com/brotherlogic/versiontracker v0.0.0-20211120211750-0f641f981981/go.mod h1:MgHv6v8c/H4SI4JEy4h0WU0lL3i6zx1AC7V7+fwe91M=
 github.com/brotherlogic/versiontracker v0.0.0-20211123193806-76210b1149e4/go.mod h1:o0ovIUxA9FoeVpiIHlYNPssB3klSksYLWBBnNkJj9rQ=
 github.com/brotherlogic/versiontracker v0.0.0-20211124205846-732bddc7c768/go.mod h1:o0ovIUxA9FoeVpiIHlYNPssB3klSksYLWBBnNkJj9rQ=
+github.com/brotherlogic/wantslist v0.0.0-20220104221158-18eca07966c5 h1:5ntwcpDO1vMnk5zzYsPRSYJV4F/gzRb2y0Tn0IdE5Ak=
+github.com/brotherlogic/wantslist v0.0.0-20220104221158-18eca07966c5/go.mod h1:aDUrl8Wpy9oHjZR/e9Uc1HEnF3eeJCFeL6vyqU0/rbw=
 github.com/casbin/casbin/v2 v2.1.2/go.mod h1:YcPU1XXisHhLzuxH9coDNf2FbKpjGlbCg3n9yuLkIJQ=
 github.com/cenkalti/backoff v2.2.1+incompatible/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

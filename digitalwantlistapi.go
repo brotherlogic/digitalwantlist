@@ -6,14 +6,12 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	gdpb "github.com/brotherlogic/godiscogs"
 	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
 	rspb "github.com/brotherlogic/recordsales/proto"
-	rwpb "github.com/brotherlogic/recordwants/proto"
+	wlpb "github.com/brotherlogic/wantslist/proto"
 )
 
 var (
@@ -91,13 +89,12 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 }
 
 func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
-	s.Log(fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
-	conn, err := s.FDialServer(ctx, "recordwants")
+	conn, err := s.FDialServer(ctx, "wantlist")
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
-	rwclient := rwpb.NewWantServiceClient(conn)
+	rwclient := wlpb.NewWantServiceClient(conn)
 
 	c2, err2 := s.FDialServer(ctx, "recordsales")
 	if err2 != nil {
@@ -113,10 +110,8 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 		}
 
 		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetSalePrice())/100 {
-			_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv, Budget: "digital"})
-			if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
-				_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Budget: "digital", Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_WANT_DIGITAL})
-			} else {
+			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: record.GetRelease().GetId()}})
+			if err != nil {
 				return err
 			}
 		}
@@ -125,26 +120,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 }
 
 func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
-	s.Log(fmt.Sprintf("UNWANTING %v", record.GetRelease().GetInstanceId()))
-
-	conn, err := s.FDialServer(ctx, "recordwants")
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-	rwclient := rwpb.NewWantServiceClient(conn)
-
-	for _, dv := range record.GetRelease().GetDigitalVersions() {
-		_, err = rwclient.AddWant(ctx, &rwpb.AddWantRequest{ReleaseId: dv})
-		if status.Convert(err).Code() == codes.OK || status.Convert(err).Code() == codes.FailedPrecondition {
-			_, err = rwclient.Update(ctx, &rwpb.UpdateRequest{Want: &gdpb.Release{Id: dv}, Level: rwpb.MasterWant_NEVER})
-		}
-
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+	return fmt.Errorf("need to implement this")
 }
 
 //ClientAddUpdate deal with a new record addition from record adder
