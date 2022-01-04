@@ -22,7 +22,7 @@ var (
 )
 
 func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionServiceClient, record *rcpb.Record) error {
-	// Only process 12 inches
+	// Only process 12 inches that are in the collection
 	if record.GetRelease().GetFolderId() != int32(242017) && record.GetMetadata().GetCategory() == rcpb.ReleaseMetadata_IN_COLLECTION {
 		return s.unwant(ctx, record)
 	}
@@ -110,7 +110,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 		}
 
 		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetSalePrice())/100 {
-			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: record.GetRelease().GetId()}})
+			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
 			if err != nil {
 				return err
 			}
@@ -120,7 +120,20 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 }
 
 func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
-	return fmt.Errorf("need to implement this")
+	conn, err := s.FDialServer(ctx, "wantlist")
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	rwclient := wlpb.NewWantServiceClient(conn)
+
+	for _, dv := range record.GetRelease().GetDigitalVersions() {
+		_, err = rwclient.DeleteWantListItem(ctx, &wlpb.DeleteWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 //ClientAddUpdate deal with a new record addition from record adder
