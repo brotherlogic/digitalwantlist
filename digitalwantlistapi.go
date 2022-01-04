@@ -89,7 +89,7 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 }
 
 func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
-	conn, err := s.FDialServer(ctx, "wantlist")
+	conn, err := s.FDialServer(ctx, "wantslist")
 	if err != nil {
 		return err
 	}
@@ -120,7 +120,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 }
 
 func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
-	conn, err := s.FDialServer(ctx, "wantlist")
+	conn, err := s.FDialServer(ctx, "wantslist")
 	if err != nil {
 		return err
 	}
