@@ -25,14 +25,14 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 	// Only process 12 inches that are in the collection
 	if record.GetRelease().GetFolderId() != int32(242017) ||
 		record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION ||
-		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_BOX_UNKNOWN ||
-		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_IN_THE_BOX {
+		record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_BOX_UNKNOWN ||
+		record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_IN_THE_BOX {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING the %v because of situation %v, %v, %v, %v",
 			record.GetRelease().GetInstanceId(),
 			record.GetRelease().GetFolderId() != int32(242017),
 			record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION,
-			record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_BOX_UNKNOWN,
-			record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_IN_THE_BOX))
+			record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_BOX_UNKNOWN,
+			record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_IN_THE_BOX))
 		return s.unwant(ctx, record)
 	}
 
