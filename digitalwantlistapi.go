@@ -27,7 +27,12 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION ||
 		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_BOX_UNKNOWN ||
 		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_IN_THE_BOX {
-		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of situation", record.GetRelease().GetInstanceId()))
+		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of situation %v, %v, %v, %v",
+			record.GetRelease().GetInstanceId(),
+			record.GetRelease().GetFolderId() != int32(242017),
+			record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION,
+			record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_BOX_UNKNOWN,
+			record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_IN_THE_BOX))
 		return s.unwant(ctx, record)
 	}
 
