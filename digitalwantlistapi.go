@@ -125,6 +125,8 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 			if err != nil {
 				return err
 			}
+		} else {
+			s.CtxLog(ctx, fmt.Sprintf("Price mismatch %v vs %v", sprice.GetPrices().GetLatest().GetPrice(), float32(record.GetMetadata().GetSalePrice())/100))
 		}
 	}
 	return nil
