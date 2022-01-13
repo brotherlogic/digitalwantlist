@@ -120,7 +120,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 			return err
 		}
 
-		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetSalePrice())/100 {
+		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetCurrentSalePrice())/100 {
 			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
 			if err != nil {
 				return err
