@@ -27,16 +27,19 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION ||
 		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_BOX_UNKNOWN ||
 		record.GetMetadata().GetBoxState() != rcpb.ReleaseMetadata_IN_THE_BOX {
+		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of situation", record.GetRelease().GetInstanceId()))
 		return s.unwant(ctx, record)
 	}
 
 	// Don't process keepers
 	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_KEEPER {
+		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of keeper", record.GetRelease().GetInstanceId()))
 		return s.unwant(ctx, record)
 	}
 
 	//Unwant anything that scores under 4
 	if record.GetMetadata().GetOverallScore() < 4 {
+		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of overall score", record.GetRelease().GetInstanceId()))
 		return s.unwant(ctx, record)
 	}
 
@@ -64,7 +67,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		}
 	}
 
-	s.Log(fmt.Sprintf("FOUND PURCHASED %v for %v", purchased, record.GetRelease().GetInstanceId()))
+	s.CtxLog(ctx, fmt.Sprintf("FOUND PURCHASED %v for %v", purchased, record.GetRelease().GetInstanceId()))
 	if purchased {
 		return s.unwant(ctx, record)
 	}
