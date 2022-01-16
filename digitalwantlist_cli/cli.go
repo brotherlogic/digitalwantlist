@@ -35,13 +35,12 @@ func main() {
 		defer conn2.Close()
 
 		registry := pbrc.NewRecordCollectionServiceClient(conn2)
-		ids, err := registry.QueryRecords(ctx2, &pbrc.QueryRecordsRequest{Query: &pbrc.QueryRecordsRequest_FolderId{673768}})
+		ids, err := registry.QueryRecords(ctx2, &pbrc.QueryRecordsRequest{Query: &pbrc.QueryRecordsRequest_FolderId{242017}})
 		if err != nil {
 			log.Fatalf("Bad query: %v", err)
 		}
 		for i, id := range ids.GetInstanceIds() {
 			_, err := client.ClientUpdate(ctx, &pbrc.ClientUpdateRequest{InstanceId: id})
-
 			fmt.Printf("%v and %v\n", i, err)
 		}
 	case "sforce":

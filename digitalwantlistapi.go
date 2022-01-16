@@ -48,34 +48,6 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
-	purchased := false
-	for _, id := range record.GetRelease().GetDigitalVersions() {
-		records, err := s.getRecords(ctx, client, id)
-		if err != nil {
-			return err
-		}
-		if len(records) > 0 {
-			purchased = true
-		}
-	}
-
-	records, err := s.getBoughtRecords(ctx)
-	if err != nil {
-		return err
-	}
-
-	for _, id := range records {
-		for _, oid := range record.GetRelease().GetDigitalVersions() {
-			if id == oid {
-				purchased = true
-			}
-		}
-	}
-
-	s.CtxLog(ctx, fmt.Sprintf("FOUND A PURCHASED %v for %v", purchased, record.GetRelease().GetInstanceId()))
-	if purchased {
-		return s.unwant(ctx, record)
-	}
 	return s.want(ctx, record)
 }
 
