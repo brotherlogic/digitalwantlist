@@ -43,7 +43,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 	}
 
 	//Unwant anything that scores under 4
-	if record.GetMetadata().GetOverallScore() < 4 {
+	if record.GetRelease().GetRating() < 4 {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of overall score", record.GetRelease().GetInstanceId()))
 		return s.unwant(ctx, record)
 	}
