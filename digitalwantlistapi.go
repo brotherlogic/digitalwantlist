@@ -53,6 +53,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
+	s.CtxLog(ctx, fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
 	return s.want(ctx, record)
 }
 
