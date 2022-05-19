@@ -59,6 +59,9 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 
 //ClientUpdate on an updated record
 func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest) (*rcpb.ClientUpdateResponse, error) {
+	if true {
+		return &rcpb.ClientUpdateResponse{}, nil
+	}
 	config, err := s.loadConfig(ctx)
 	if err != nil {
 		return nil, err
