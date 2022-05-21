@@ -59,9 +59,6 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 
 //ClientUpdate on an updated record
 func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest) (*rcpb.ClientUpdateResponse, error) {
-	if true {
-		return &rcpb.ClientUpdateResponse{}, nil
-	}
 	config, err := s.loadConfig(ctx)
 	if err != nil {
 		return nil, err
@@ -74,8 +71,8 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 	defer conn.Close()
 
 	client := rcpb.NewRecordCollectionServiceClient(conn)
-	record, err := s.processRecord(ctx, client, req.GetInstanceId(), config)
-	s.adjust(ctx, client, record)
+	record, _ := s.processRecord(ctx, client, req.GetInstanceId(), config)
+	//s.adjust(ctx, client, record)
 
 	return &rcpb.ClientUpdateResponse{}, s.adjust(ctx, client, record)
 }
