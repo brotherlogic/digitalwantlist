@@ -51,6 +51,12 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
+	//Unwant anything that we have partial or full matches on
+	if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH || record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_PARTIAL_MATCH {
+		s.CtxLog(ctx, fmt.Sprintf("UNWATING %v because of match: %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetMatch()))
+		return s.unwant(ctx, record)
+	}
+
 	s.CtxLog(ctx, fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
 	return s.want(ctx, record)
 }
