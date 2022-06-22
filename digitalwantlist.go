@@ -175,7 +175,7 @@ func main() {
 	config, err := server.loadConfig(ctx)
 	code := status.Convert(err).Code()
 	if err != nil {
-		key, eerr := server.RunLockingElection(ctx, "dwl-init")
+		key, eerr := server.RunLockingElection(ctx, "dwl-init", "Locking to build out the digital wantlist")
 		defer func() {
 			server.ReleaseLockingElection(ctx, "dwl-init", key)
 		}()
