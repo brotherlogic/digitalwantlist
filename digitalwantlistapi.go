@@ -96,19 +96,20 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 	defer c2.Close()
 	rsclient := rspb.NewSaleServiceClient(c2)
 
-	for _, dv := range record.GetRelease().GetDigitalVersions() {
-		sprice, err := rsclient.GetPrice(ctx, &rspb.GetPriceRequest{Id: dv})
-		if err != nil {
-			return err
-		}
+	presp, err := rsclient.GetPrice(ctx, &rspb.GetPriceRequest{Ids: record.GetRelease().GetDigitalVersions()})
+	if err != nil {
+		return err
+	}
 
-		if sprice.GetPrices().GetLatest().GetPrice() < float32(record.GetMetadata().GetCurrentSalePrice())/100 {
+	for _, dv := range record.GetRelease().GetDigitalVersions() {
+
+		if presp.GetPrices()[dv].GetLatest().GetPrice() < float32(record.GetMetadata().GetCurrentSalePrice())/100 {
 			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
 			if err != nil {
 				return err
 			}
 		} else {
-			s.CtxLog(ctx, fmt.Sprintf("Price mismatch %v vs %v", sprice.GetPrices().GetLatest().GetPrice(), float32(record.GetMetadata().GetCurrentSalePrice())/100))
+			s.CtxLog(ctx, fmt.Sprintf("Price mismatch %v vs %v", presp.GetPrices()[dv].GetLatest().GetPrice(), float32(record.GetMetadata().GetCurrentSalePrice())/100))
 		}
 	}
 	return nil
