@@ -39,6 +39,11 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
+	// If it's a digital keeper , then want it
+	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_DIGITAL_KEEPER {
+		return s.want(ctx, record)
+	}
+
 	// Don't process keepers
 	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_KEEPER {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of keeper", record.GetRelease().GetInstanceId()))
