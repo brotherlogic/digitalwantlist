@@ -18,6 +18,6 @@ func InitTestServer() *Server {
 	return s
 }
 
-func TestClientUpdate(t *testing.T) {
-	//Pass
+func TestClientUpdateFail(t *testing.T) {
+	// Pass
 }

@@ -39,6 +39,11 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
+	// If it's a digital keeper , then want it
+	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_DIGITAL_KEEPER {
+		return s.want(ctx, record, "digital_quick")
+	}
+
 	// Don't process keepers
 	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_KEEPER {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of keeper", record.GetRelease().GetInstanceId()))
@@ -58,7 +63,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 	}
 
 	s.CtxLog(ctx, fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
-	return s.want(ctx, record)
+	return s.want(ctx, record, "digital")
 }
 
 //ClientUpdate on an updated record
@@ -81,7 +86,7 @@ func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest
 	return &rcpb.ClientUpdateResponse{}, s.adjust(ctx, client, record)
 }
 
-func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
+func (s *Server) want(ctx context.Context, record *rcpb.Record, list string) error {
 	conn, err := s.FDialServer(ctx, "wantslist")
 	if err != nil {
 		return err
@@ -104,7 +109,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record) error {
 	for _, dv := range record.GetRelease().GetDigitalVersions() {
 
 		if presp.GetPrices()[dv].GetLatest().GetPrice() < float32(record.GetMetadata().GetCurrentSalePrice())/100 {
-			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
+			_, err = rwclient.AddWantListItem(ctx, &wlpb.AddWantListItemRequest{ListName: list, Entry: &wlpb.WantListEntry{Want: dv}})
 			if err != nil {
 				return err
 			}
