@@ -23,7 +23,8 @@ var (
 
 func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionServiceClient, record *rcpb.Record) error {
 	// We only consider 12 inches
-	if record.GetMetadata().GetGoalFolder() != int32(242017) {
+	if record.GetMetadata().GetFiledUnder() != rcpb.ReleaseMetadata_FILE_12_INCH {
+		s.CtxLog(ctx, fmt.Sprintf("Skipping %v because it's %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetFiledUnder()))
 		return nil
 	}
 

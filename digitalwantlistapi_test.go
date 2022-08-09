@@ -21,3 +21,4 @@ func InitTestServer() *Server {
 func TestClientUpdateFail(t *testing.T) {
 	// Pass
 }
+
