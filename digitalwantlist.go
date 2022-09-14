@@ -61,8 +61,8 @@ func (s *Server) GetState() []*pbg.State {
 	}
 }
 
-func (s *Server) initConfig() error {
-	s.Log(fmt.Sprintf("Initializing Digital Wantlist Config"))
+func (s *Server) initConfig(ctx context.Context) error {
+	s.CtxLog(ctx, fmt.Sprintf("Initializing Digital Wantlist Config"))
 
 	config := &pb.Config{}
 
@@ -184,7 +184,7 @@ func main() {
 		}
 
 		if code == codes.InvalidArgument {
-			server.initConfig()
+			server.initConfig(ctx)
 		}
 
 		// Silent exit if there's not keystore
@@ -192,11 +192,10 @@ func main() {
 			return
 		}
 
-		server.Log(fmt.Sprintf("Error Loading Config: %v", err))
+		server.CtxLog(ctx, fmt.Sprintf("Error Loading Config: %v", err))
 		time.Sleep(time.Second * 5)
 		log.Fatalf("Error loading: %v", err)
 	}
-	cancel()
 
 	/*	if len(config.GetPurchased()) > 1 {
 		config.Purchased = []int32{1}
@@ -210,8 +209,9 @@ func main() {
 	}*/
 
 	time.Sleep(time.Second * 5)
-	server.Log(fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
+	server.CtxLog(ctx, fmt.Sprintf("Loaded config and ready to server: %v", len(config.GetPurchased())))
 	time.Sleep(time.Second * 5)
+	cancel()
 
 	fmt.Printf("%v", server.Serve())
 }
