@@ -3,22 +3,16 @@ module github.com/brotherlogic/digitalwantlist
 go 1.16
 
 require (
-	github.com/brotherlogic/datastore v0.0.0-20220912160103-0ec87bb315fa // indirect
-	github.com/brotherlogic/discovery v0.0.0-20220914002050-6cca3446a69d // indirect
-	github.com/brotherlogic/dstore v0.0.0-20220912144939-9dbc4a6c86ee // indirect
-	github.com/brotherlogic/godiscogs v0.0.0-20220903154230-c90014325c5b
-	github.com/brotherlogic/goserver v0.0.0-20220821031349-d47a1932e1b3
-	github.com/brotherlogic/keystore v0.0.0-20220819230625-94090acd1be1
-	github.com/brotherlogic/logging v0.0.0-20220914155557-1a4bf8a90857 // indirect
-	github.com/brotherlogic/recordadder v0.0.0-20220916142655-732fbee0e097
-	github.com/brotherlogic/recordcollection v0.0.0-20220912143930-00836d99ffdb
-	github.com/brotherlogic/recordsales v0.0.0-20220912230023-eba82ab3a5ed
-	github.com/brotherlogic/wantslist v0.0.0-20220915002047-434dad14460d
+	github.com/brotherlogic/godiscogs v0.0.0-20221008131707-6944ba63cf54
+	github.com/brotherlogic/goserver v0.0.0-20221013151047-c298341b30b6
+	github.com/brotherlogic/keystore v0.0.0-20220919100110-299b209de552
+	github.com/brotherlogic/recordadder v0.0.0-20221016143231-a67cbe6a9514
+	github.com/brotherlogic/recordcollection v0.0.0-20221015234647-488411d218cc
+	github.com/brotherlogic/recordsales v0.0.0-20221013032125-a7e473bf4038
+	github.com/brotherlogic/wantslist v0.0.0-20221013014047-04846f991eda
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.13.0
-	golang.org/x/net v0.0.0-20220909164309-bea034e7d591
-	golang.org/x/sys v0.0.0-20220915200043-7b5979e65e41 // indirect
-	google.golang.org/genproto v0.0.0-20220916172020-2692e8806bfa // indirect
-	google.golang.org/grpc v1.49.0
+	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
+	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 )
