@@ -28,6 +28,12 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return nil
 	}
 
+	//Unwant anything that we have partial or full matches on
+	if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH || record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_PARTIAL_MATCH {
+		s.CtxLog(ctx, fmt.Sprintf("UNWATING %v because of match: %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetMatch()))
+		return s.unwant(ctx, record)
+	}
+
 	// Only process 12 inches that are in the collection
 	if record.GetRelease().GetFolderId() != int32(242017) ||
 		record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION ||
@@ -57,17 +63,11 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return s.unwant(ctx, record)
 	}
 
-	//Unwant anything that we have partial or full matches on
-	if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH || record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_PARTIAL_MATCH {
-		s.CtxLog(ctx, fmt.Sprintf("UNWATING %v because of match: %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetMatch()))
-		return s.unwant(ctx, record)
-	}
-
 	s.CtxLog(ctx, fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
 	return s.want(ctx, record, "digital")
 }
 
-//ClientUpdate on an updated record
+// ClientUpdate on an updated record
 func (s *Server) ClientUpdate(ctx context.Context, req *rcpb.ClientUpdateRequest) (*rcpb.ClientUpdateResponse, error) {
 	config, err := s.loadConfig(ctx)
 	if err != nil {
@@ -138,7 +138,7 @@ func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
 	return nil
 }
 
-//ClientAddUpdate deal with a new record addition from record adder
+// ClientAddUpdate deal with a new record addition from record adder
 func (s *Server) ClientAddUpdate(ctx context.Context, req *rapb.ClientAddUpdateRequest) (*rapb.ClientAddUpdateResponse, error) {
 	conn, err := s.FDialServer(ctx, "recordcollection")
 	if err != nil {
