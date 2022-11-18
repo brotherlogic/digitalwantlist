@@ -28,6 +28,15 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 		return nil
 	}
 
+	// If it's a digital keeper , then want it
+	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_DIGITAL_KEEPER {
+		if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH {
+			return s.unwant(ctx, record, "digital_quick")
+		} else {
+			return s.want(ctx, record, "digital_quick")
+		}
+	}
+
 	//Unwant anything that we have partial or full matches on
 	if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH || record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_PARTIAL_MATCH {
 		s.CtxLog(ctx, fmt.Sprintf("UNWATING %v because of match: %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetMatch()))
@@ -44,15 +53,6 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 			record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION,
 			record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_IN_THE_BOX))
 		return s.unwant(ctx, record, "digital")
-	}
-
-	// If it's a digital keeper , then want it
-	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_DIGITAL_KEEPER {
-		if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH {
-			return s.unwant(ctx, record, "digital_quick")
-		} else {
-			return s.want(ctx, record, "digital_quick")
-		}
 	}
 
 	// Don't process keepers
