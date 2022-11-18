@@ -31,7 +31,7 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 	//Unwant anything that we have partial or full matches on
 	if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH || record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_PARTIAL_MATCH {
 		s.CtxLog(ctx, fmt.Sprintf("UNWATING %v because of match: %v", record.GetRelease().GetInstanceId(), record.GetMetadata().GetMatch()))
-		return s.unwant(ctx, record)
+		return s.unwant(ctx, record, "digital")
 	}
 
 	// Only process 12 inches that are in the collection
@@ -43,24 +43,28 @@ func (s *Server) adjust(ctx context.Context, client rcpb.RecordCollectionService
 			record.GetRelease().GetFolderId() != int32(242017),
 			record.GetMetadata().GetCategory() != rcpb.ReleaseMetadata_IN_COLLECTION,
 			record.GetMetadata().GetBoxState() == rcpb.ReleaseMetadata_IN_THE_BOX))
-		return s.unwant(ctx, record)
+		return s.unwant(ctx, record, "digital")
 	}
 
 	// If it's a digital keeper , then want it
 	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_DIGITAL_KEEPER {
-		return s.want(ctx, record, "digital_quick")
+		if record.GetMetadata().GetMatch() == rcpb.ReleaseMetadata_FULL_MATCH {
+			return s.unwant(ctx, record, "digital_quick")
+		} else {
+			return s.want(ctx, record, "digital_quick")
+		}
 	}
 
 	// Don't process keepers
 	if record.GetMetadata().GetKeep() == rcpb.ReleaseMetadata_KEEPER {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of keeper", record.GetRelease().GetInstanceId()))
-		return s.unwant(ctx, record)
+		return s.unwant(ctx, record, "digital")
 	}
 
 	//Unwant anything that scores under 4
 	if record.GetRelease().GetRating() < 4 {
 		s.CtxLog(ctx, fmt.Sprintf("UNWANTING %v because of overall score", record.GetRelease().GetInstanceId()))
-		return s.unwant(ctx, record)
+		return s.unwant(ctx, record, "digital")
 	}
 
 	s.CtxLog(ctx, fmt.Sprintf("WANTING %v", record.GetRelease().GetInstanceId()))
@@ -121,7 +125,7 @@ func (s *Server) want(ctx context.Context, record *rcpb.Record, list string) err
 	return nil
 }
 
-func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
+func (s *Server) unwant(ctx context.Context, record *rcpb.Record, list string) error {
 	conn, err := s.FDialServer(ctx, "wantslist")
 	if err != nil {
 		return err
@@ -130,7 +134,7 @@ func (s *Server) unwant(ctx context.Context, record *rcpb.Record) error {
 	rwclient := wlpb.NewWantServiceClient(conn)
 
 	for _, dv := range record.GetRelease().GetDigitalVersions() {
-		_, err = rwclient.DeleteWantListItem(ctx, &wlpb.DeleteWantListItemRequest{ListName: "digital", Entry: &wlpb.WantListEntry{Want: dv}})
+		_, err = rwclient.DeleteWantListItem(ctx, &wlpb.DeleteWantListItemRequest{ListName: list, Entry: &wlpb.WantListEntry{Want: dv}})
 		if err != nil {
 			return err
 		}
