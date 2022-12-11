@@ -1652,8 +1652,8 @@ github.com/brotherlogic/recordsales v0.0.0-20221201082944-8bb72b6659b6/go.mod h1
 github.com/brotherlogic/recordsales v0.0.0-20221202174902-0797aae5526f/go.mod h1:F5T0WEdqZj9nP/YSNSVjraWY/nfIEnkkaX7CDbyYJMI=
 github.com/brotherlogic/recordsales v0.0.0-20221202182925-eaef705c8c75/go.mod h1:04WfRPSkz6p6pLz+l0AXycPkWESevFDIS3Kgfx3romg=
 github.com/brotherlogic/recordsales v0.0.0-20221203184900-1f70e2eaeba2/go.mod h1:PTYue9/F0UMZ1Ov8xZ+1ZXGxU2gfOwvyxpyrb5i/fnw=
-github.com/brotherlogic/recordsales v0.0.0-20221211030234-86c05e1a4977 h1:d8ZVQy4BB4/4roR+NaqJEUciJ5xiPxrObup55/PuYZA=
-github.com/brotherlogic/recordsales v0.0.0-20221211030234-86c05e1a4977/go.mod h1:FfutJWNuQAF6jl5J+yU2iIiAaNf9lUZ/QYdXDOHx+Hc=
+github.com/brotherlogic/recordsales v0.0.0-20221211032337-f2a3821ad41b h1:jpv1Zd7DUu3cFTIPNfqq3wo8wYxrzcJPSKbPRvQgY8g=
+github.com/brotherlogic/recordsales v0.0.0-20221211032337-f2a3821ad41b/go.mod h1:aA8OXLMRGxX9R1QXguTe4KEYThGYj2wWgFS9kJ2ChFc=
 github.com/brotherlogic/recordscores v0.0.0-20210517233509-7a04fb3bddcc/go.mod h1:QcX/dVudw0zz5IneDZnkvVPR/M5JTLZSRZGlM6F+Xd4=
 github.com/brotherlogic/recordscores v0.0.0-20210525132007-8bd5c16289d7/go.mod h1:iLZQgO4nZ39wxdMNnR66NU133q3qbExpOUDtgjEJV0M=
 github.com/brotherlogic/recordscores v0.0.0-20211008223008-e1724b3f998b/go.mod h1:CoD1i7vyBmtUJPaSZ7UBm2hHRKA912aUsOFD+YVDzG4=
