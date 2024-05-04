@@ -7,7 +7,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
 
-	gdpb "github.com/brotherlogic/godiscogs"
+	gdpb "github.com/brotherlogic/godiscogs/proto"
 	rapb "github.com/brotherlogic/recordadder/proto"
 	rcpb "github.com/brotherlogic/recordcollection/proto"
 	rspb "github.com/brotherlogic/recordsales/proto"
