@@ -8,10 +8,10 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20240823195726-9a8d322e6898
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
-	github.com/brotherlogic/recordadder v0.0.0-20241004061350-7e0d2e215cb6
-	github.com/brotherlogic/recordcollection v0.0.0-20241004072236-1b9f22012844
-	github.com/brotherlogic/recordsales v0.0.0-20241004040914-8f3173639d47
-	github.com/brotherlogic/wantslist v0.0.0-20241004051150-20dd83b36743
+	github.com/brotherlogic/recordadder v0.0.0-20241004111703-a3d9ea7fca24
+	github.com/brotherlogic/recordcollection v0.0.0-20241004122010-f4b339ba6711
+	github.com/brotherlogic/recordsales v0.0.0-20241004111652-6a5d62b4bba7
+	github.com/brotherlogic/wantslist v0.0.0-20241004131946-1cfac6dad879
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.4
 	golang.org/x/net v0.29.0
@@ -41,6 +41,6 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/struCoder/pidusage v0.2.1 // indirect
 	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/text v0.19.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240930140551-af27646dc61f // indirect
 )
