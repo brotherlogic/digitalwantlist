@@ -9,12 +9,12 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
 	github.com/brotherlogic/recordadder v0.0.0-20241004111703-a3d9ea7fca24
-	github.com/brotherlogic/recordcollection v0.0.0-20241004122010-f4b339ba6711
-	github.com/brotherlogic/recordsales v0.0.0-20241004142056-7d1cd559497f
-	github.com/brotherlogic/wantslist v0.0.0-20241004142022-99fa2465cbcc
+	github.com/brotherlogic/recordcollection v0.0.0-20241004152505-b8d8b7f13779
+	github.com/brotherlogic/recordsales v0.0.0-20241004162303-3d986b60111d
+	github.com/brotherlogic/wantslist v0.0.0-20241004152414-139df5c8f9a8
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.4
-	golang.org/x/net v0.29.0
+	golang.org/x/net v0.30.0
 	google.golang.org/grpc v1.67.1
 	google.golang.org/protobuf v1.34.2
 )
