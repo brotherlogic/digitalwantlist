@@ -30,8 +30,8 @@ github.com/brotherlogic/recordadder v0.0.0-20241201041042-b591d8db48cc h1:YHXuS0
 github.com/brotherlogic/recordadder v0.0.0-20241201041042-b591d8db48cc/go.mod h1:pdTkxnNSJJXEUOR01k0wl4dTWPJc4wKYCiMRTR4whTE=
 github.com/brotherlogic/recordcollection v0.0.0-20241201192902-8c751938cae0 h1:TaJ42kYl4oyC8KerEM5u8CIB5Yp9PGtisVCcVO8W+gg=
 github.com/brotherlogic/recordcollection v0.0.0-20241201192902-8c751938cae0/go.mod h1:Y+SsvifWldca6vVpI2QWCD1hEHwnX6LAV5Bn4mIZ9z4=
-github.com/brotherlogic/recordsales v0.0.0-20241201185755-71e0d200cb76 h1:g6YKRScYcZ18zdhZNX5i456jtN407kvMe36hjG3kypc=
-github.com/brotherlogic/recordsales v0.0.0-20241201185755-71e0d200cb76/go.mod h1:azHTY94WfFPA3FkR3WIL6c70evnaUKjeh5qlHio2Kus=
+github.com/brotherlogic/recordsales v0.0.0-20241201193130-0084ac4ace2c h1:4/QmBiJQY/roUtn+yOBJuk/qW5ah9YjUrHqB5+NyFDU=
+github.com/brotherlogic/recordsales v0.0.0-20241201193130-0084ac4ace2c/go.mod h1:YKx0peQu5Z0Ljtv/pKylDfIwkdbnbCRwcmfGknCtZBI=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/brotherlogic/wantslist v0.0.0-20241201191833-bf4426147efa h1:TkMh0gpaMMESmn8J8+FKevpJyXpS2UwlndELiAtjn0k=
