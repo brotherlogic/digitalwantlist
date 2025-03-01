@@ -6,10 +6,10 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
-	github.com/brotherlogic/recordadder v0.0.0-20250301012749-c21d1b9d772b
+	github.com/brotherlogic/recordadder v0.0.0-20250301031028-134b97bc0c21
 	github.com/brotherlogic/recordcollection v0.0.0-20250227174213-ce20ec909d87
 	github.com/brotherlogic/recordsales v0.0.0-20250301004559-51b04a37b050
-	github.com/brotherlogic/wantslist v0.0.0-20250301013031-f5f1bf5382e8
+	github.com/brotherlogic/wantslist v0.0.0-20250301020907-dc5f350dfcd8
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.0
 	golang.org/x/net v0.35.0
