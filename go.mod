@@ -6,10 +6,10 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
-	github.com/brotherlogic/recordadder v0.0.0-20250301000438-c26f7f8eb5d6
+	github.com/brotherlogic/recordadder v0.0.0-20250301012749-c21d1b9d772b
 	github.com/brotherlogic/recordcollection v0.0.0-20250227174213-ce20ec909d87
-	github.com/brotherlogic/recordsales v0.0.0-20250301002002-c1482a0e56fc
-	github.com/brotherlogic/wantslist v0.0.0-20250301004215-2be45046c26e
+	github.com/brotherlogic/recordsales v0.0.0-20250301004559-51b04a37b050
+	github.com/brotherlogic/wantslist v0.0.0-20250301013031-f5f1bf5382e8
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.0
 	golang.org/x/net v0.35.0
@@ -19,14 +19,14 @@ require (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250228234330-7ce51a4e2c79 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250301020402-5ee7b70727ed // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250113225754-a9cab19c721e // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
-	github.com/brotherlogic/dstore v0.0.0-20250301002520-817a76991675 // indirect
+	github.com/brotherlogic/dstore v0.0.0-20250301014546-66ac2ee8d3e8 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250301003902-dfce70eea70e // indirect
 	github.com/brotherlogic/githubridge v0.2848.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20250228233820-b15da7d25440 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250301003456-5a9d857789fe // indirect
+	github.com/brotherlogic/lock v0.0.0-20250301014338-cd21acab87eb // indirect
 	github.com/brotherlogic/logging v0.0.0-20250228230500-8230ac845c59 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
