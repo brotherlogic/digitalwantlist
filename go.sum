@@ -34,8 +34,8 @@ github.com/brotherlogic/recordsales v0.0.0-20250308011649-af682ffec717 h1:P/5TnR
 github.com/brotherlogic/recordsales v0.0.0-20250308011649-af682ffec717/go.mod h1:zXjjbWJ1SQ5P7KJH1w47w58fl1iG1NaLggSjy5e9DZQ=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
-github.com/brotherlogic/wantslist v0.0.0-20250301052418-af1c8e351ae5 h1:jKTp0fV1Mnv1k+bl9Sr02iPic4glrPhYxCH3TvIX4Zw=
-github.com/brotherlogic/wantslist v0.0.0-20250301052418-af1c8e351ae5/go.mod h1:7zVGW5lCLyVto862p2UeGj8H4z2/es4udpByzd3KhBo=
+github.com/brotherlogic/wantslist v0.0.0-20250308012601-c9c4d485e45a h1:e3lQ7XSQdoD5LYF8c3haxFFKp4TdoROdUmOoXm1zNL8=
+github.com/brotherlogic/wantslist v0.0.0-20250308012601-c9c4d485e45a/go.mod h1:3BzSxtH1uUGLO9Bjhec41iP2NSzMueKyZXBWyvRH+pQ=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
 github.com/cespare/xxhash/v2 v2.3.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
