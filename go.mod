@@ -9,7 +9,7 @@ require (
 	github.com/brotherlogic/recordadder v0.0.0-20250317155020-9751c0a415b9
 	github.com/brotherlogic/recordcollection v0.0.0-20250227174213-ce20ec909d87
 	github.com/brotherlogic/recordsales v0.0.0-20250317162127-26eaededdc17
-	github.com/brotherlogic/wantslist v0.0.0-20250317163350-04bf2f66a59b
+	github.com/brotherlogic/wantslist v0.0.0-20250317171403-6d8ca4e85ab9
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
 	golang.org/x/net v0.37.0
