@@ -26,12 +26,12 @@ github.com/brotherlogic/logging v0.0.0-20250411182934-3b2ab3fd2fb2 h1:l/cnQnLNdt
 github.com/brotherlogic/logging v0.0.0-20250411182934-3b2ab3fd2fb2/go.mod h1:bHiUf8czRkreMgZV18pcIaqgxXYc9CU+Do3QE2K5u70=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 h1:hxu2T9JspE76sL3XAx/CNtA9bOO6QCEJkyG9rBXFEVA=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6/go.mod h1:babny4VO2GqFwjXqhJsP4a6la4XJeMT6f4BgLBPq4G8=
-github.com/brotherlogic/recordadder v0.0.0-20250411173759-dfeb8a3f854e h1:hiD8YdNC0KKhxWCZD0v0LEcImFRcVxuo5NIO9Fe1NrU=
-github.com/brotherlogic/recordadder v0.0.0-20250411173759-dfeb8a3f854e/go.mod h1:ZZl5psFNEPiGVjIfmYMNphLGnPY5wlIxjxzmxRuu1Pk=
+github.com/brotherlogic/recordadder v0.0.0-20250418180302-a153eb4be346 h1:Pv1ueMEUPdjmO85TMEn/joAkb5QctsO9x0CyMBV9fyU=
+github.com/brotherlogic/recordadder v0.0.0-20250418180302-a153eb4be346/go.mod h1:h/NRZ+rlyacIQd57tLN7uuQ00709SvMCMO5Np8qSIrM=
 github.com/brotherlogic/recordcollection v0.0.0-20250418000543-2afdbf1d772c h1:/HB8SF8JyZiMx/uPOlazjHJc2CtGDG0QRPOXCSr6g7g=
 github.com/brotherlogic/recordcollection v0.0.0-20250418000543-2afdbf1d772c/go.mod h1:QiXsWQjgnOOF15xTU5UkC24mvzr+oM7fqIlA97o95Xk=
-github.com/brotherlogic/recordsales v0.0.0-20250411172951-3286b549f5b9 h1:lKrB1ghZw5kSQEETiTYxj2rg/frz9XV6+i1MHN6aAX0=
-github.com/brotherlogic/recordsales v0.0.0-20250411172951-3286b549f5b9/go.mod h1:Uc66z7ZvzpHeJZBTGu09OwcItheBKJfcu58jrTas5+s=
+github.com/brotherlogic/recordsales v0.0.0-20250418180243-69c8d6486b28 h1:MO/fAFkpLoddW0Fu5Uk1PxHPxrhPE4chUiFnc8j5xCI=
+github.com/brotherlogic/recordsales v0.0.0-20250418180243-69c8d6486b28/go.mod h1:oao9je03d+UbdJGnpQ7aJcMgQIXK1Ybw6tn4zRmW2TU=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/brotherlogic/wantslist v0.0.0-20250412000712-c1f74356db17 h1:ATKceqTcArGF6jcpcGLUaU6lF+0Y4prkGhvT2rKPw9c=
