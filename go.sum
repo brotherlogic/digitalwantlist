@@ -26,12 +26,12 @@ github.com/brotherlogic/logging v0.0.0-20250628040310-916d7d3a1f08 h1:mJeHGtc4jC
 github.com/brotherlogic/logging v0.0.0-20250628040310-916d7d3a1f08/go.mod h1:Z1X+1JBMzzkuxiKON9YjT+yYmSZKbJom/SDrdYBTZU4=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 h1:hxu2T9JspE76sL3XAx/CNtA9bOO6QCEJkyG9rBXFEVA=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6/go.mod h1:babny4VO2GqFwjXqhJsP4a6la4XJeMT6f4BgLBPq4G8=
-github.com/brotherlogic/recordadder v0.0.0-20250628040411-906b12a51501 h1:ysONgLRxQVTxw2pFvdkTXHSeA+1YsoNA9OJtRHbS7G0=
-github.com/brotherlogic/recordadder v0.0.0-20250628040411-906b12a51501/go.mod h1:N+8NmqQSW8xRjL+Ga3y2r8KKIrh0spwWTCkc1VtM+D0=
+github.com/brotherlogic/recordadder v0.0.0-20250628041120-936e4706aeae h1:dza/mfIdvWrer07A26DoIXSD0gqbvkC+uOkvnGrifyw=
+github.com/brotherlogic/recordadder v0.0.0-20250628041120-936e4706aeae/go.mod h1:o9ut0KyTinmwxNWfdtUdgSsxS0DVItQl1efnuWLpG6w=
 github.com/brotherlogic/recordcollection v0.0.0-20250625165631-0ab7d5811bd2 h1:ngTMN0yJbwB8PG/LN1fr4JtN4L6K4nrh3eHm13Fz6pE=
 github.com/brotherlogic/recordcollection v0.0.0-20250625165631-0ab7d5811bd2/go.mod h1:NnhvH//ryqGgwgMfI9OXqouzrsSQ9VeYoyUuqxhYH+E=
-github.com/brotherlogic/recordsales v0.0.0-20250628035144-76d895b91b8e h1:uQd0oc0cMRpfu1uSt/FBN8emk1mrXd2db/POtiRgHvM=
-github.com/brotherlogic/recordsales v0.0.0-20250628035144-76d895b91b8e/go.mod h1:SGJSpL89fQYx2hMjcNd4o8JqRCRL5gFSb/xkmxMXiT8=
+github.com/brotherlogic/recordsales v0.0.0-20250628041340-d8b843a6835a h1:c0QHc5jc2wahDzV/+Pb8n24NZK/ZkoACriCiiuz56/k=
+github.com/brotherlogic/recordsales v0.0.0-20250628041340-d8b843a6835a/go.mod h1:ZlGTPYNRJYP4lWCMw4Wt5UhEqKsH2lFZ6EJ/62YDibE=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/brotherlogic/wantslist v0.0.0-20250610002720-fd41c4039a0f h1:WAb8F67Yp8eXfO+6OMAgPb/woeF9FzMgBpHvZF8eBUY=
