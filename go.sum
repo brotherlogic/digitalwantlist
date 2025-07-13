@@ -1,7 +1,7 @@
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
-github.com/brotherlogic/buildserver v0.0.0-20250713052525-5c41e7858e8a h1:BW/pSuR4og9QXmOjMjdUXN+eNdba641KXv8fT7GLrIA=
-github.com/brotherlogic/buildserver v0.0.0-20250713052525-5c41e7858e8a/go.mod h1:AYGDPFMV10LnigUbfHP4L/dm8QAR9xFc2rzjBwUD+AU=
+github.com/brotherlogic/buildserver v0.0.0-20250713082425-87aebaa1a004 h1:ao4/01cIIAkw+P2oAtzSKUMMR/YU7F0OUHYzIbRKVx4=
+github.com/brotherlogic/buildserver v0.0.0-20250713082425-87aebaa1a004/go.mod h1:FlquWjNFV5lGby0Xi6vp0cssIj5qtMshdADMOEFJXkY=
 github.com/brotherlogic/datastore v0.0.0-20250610012354-722a6beaa331 h1:XTRMSwtcgm8sBrtDZzXCfkUey9r+eOYjFj85HxuEd10=
 github.com/brotherlogic/datastore v0.0.0-20250610012354-722a6beaa331/go.mod h1:myPHKOYfXo6wQFA2eU5n+0ZuIljYaye3FUUepu5zycI=
 github.com/brotherlogic/discovery v0.0.0-20250613142713-1dac6d7d6bdd h1:jAWLwRrmS8VgjeV7uE79A4P5DOxXk8WTYAYebHv+sFA=
@@ -30,8 +30,8 @@ github.com/brotherlogic/recordadder v0.0.0-20250713072031-cdd376e879bc h1:RpwWgo
 github.com/brotherlogic/recordadder v0.0.0-20250713072031-cdd376e879bc/go.mod h1:om/Uty4HqE44TaD6LVAcKeupzUicXunc2yAl7Bi0f0A=
 github.com/brotherlogic/recordcollection v0.0.0-20250625165631-0ab7d5811bd2 h1:ngTMN0yJbwB8PG/LN1fr4JtN4L6K4nrh3eHm13Fz6pE=
 github.com/brotherlogic/recordcollection v0.0.0-20250625165631-0ab7d5811bd2/go.mod h1:NnhvH//ryqGgwgMfI9OXqouzrsSQ9VeYoyUuqxhYH+E=
-github.com/brotherlogic/recordsales v0.0.0-20250713071831-2ca57bd7e2f6 h1:Bf/KzmR5sVV6m6yqJkUPEfgNtVhA+xg179AwmevmsGs=
-github.com/brotherlogic/recordsales v0.0.0-20250713071831-2ca57bd7e2f6/go.mod h1:y7BqgcdyOKKRVnZFhAjxmAKzh+kg4zHjO8FSmoyJdks=
+github.com/brotherlogic/recordsales v0.0.0-20250713082236-5c15b135f115 h1:5x3+lOKR/uqBU5XzmAzwS/EURpUkUTGvaWbRFXOBqVs=
+github.com/brotherlogic/recordsales v0.0.0-20250713082236-5c15b135f115/go.mod h1:QTK1uetR86MMkMz7snoURtbbUaB8PPDw9GgLZj8c3i4=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/brotherlogic/wantslist v0.0.0-20250610002720-fd41c4039a0f h1:WAb8F67Yp8eXfO+6OMAgPb/woeF9FzMgBpHvZF8eBUY=
