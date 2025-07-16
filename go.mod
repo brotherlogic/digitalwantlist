@@ -6,8 +6,8 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20250429182651-404c7473edf8
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
-	github.com/brotherlogic/recordadder v0.0.0-20250715171741-9d12ab25f23f
-	github.com/brotherlogic/recordcollection v0.0.0-20250625165631-0ab7d5811bd2
+	github.com/brotherlogic/recordadder v0.0.0-20250715231156-253c675cb08e
+	github.com/brotherlogic/recordcollection v0.0.0-20250715205636-bf74e659d908
 	github.com/brotherlogic/recordsales v0.0.0-20250713132707-7cae9b92a33a
 	github.com/brotherlogic/wantslist v0.0.0-20250610002720-fd41c4039a0f
 	github.com/golang/protobuf v1.5.4
@@ -39,5 +39,5 @@ require (
 	github.com/struCoder/pidusage v0.2.1 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250715232539-7130f93afb79 // indirect
 )
