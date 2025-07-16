@@ -6,7 +6,7 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20250429182651-404c7473edf8
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126
-	github.com/brotherlogic/recordadder v0.0.0-20250715231156-253c675cb08e
+	github.com/brotherlogic/recordadder v0.0.0-20250716001556-8b5eb4d576a4
 	github.com/brotherlogic/recordcollection v0.0.0-20250715205636-bf74e659d908
 	github.com/brotherlogic/recordsales v0.0.0-20250713132707-7cae9b92a33a
 	github.com/brotherlogic/wantslist v0.0.0-20250610002720-fd41c4039a0f
@@ -26,7 +26,7 @@ require (
 	github.com/brotherlogic/githubcard v0.0.0-20250711223628-6afb88694f07 // indirect
 	github.com/brotherlogic/githubridge v0.2865.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20250617150904-f41a1af90c2d // indirect
-	github.com/brotherlogic/lock v0.0.0-20250714224739-b8d2f91ac571 // indirect
+	github.com/brotherlogic/lock v0.0.0-20250716001334-92ccb7638c3c // indirect
 	github.com/brotherlogic/logging v0.0.0-20250714215612-d76512b702de // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
